@@ -1,10 +1,10 @@
 library IEEE; 
 use IEEE.std_logic_1164.all; 
 use IEEE.numeric_std.all;
-entity Adder_TestBench is 
+entity Mask_TestBench is 
 end entity;
 
-architecture beh of Adder_TestBench is 
+architecture beh of Mask_TestBench is 
       constant clk_period : time := 8 ns;
       constant Dimension : positive := 4;  
 
