@@ -1,0 +1,6 @@
+modelsim/work
+
+modelsim/*.bmp
+modelsim/*.wlf
+modelsim/*.do
+modelsim/*.txt
