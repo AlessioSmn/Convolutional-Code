@@ -8,3 +8,4 @@ modelsim/*.txt
 modelsim/vsim.wlf
 modelsim/work/_info
 modelsim/work/_lib.qdb
+modelsim/vsim.wlf
