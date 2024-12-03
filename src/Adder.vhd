@@ -25,12 +25,13 @@ architecture beh of Adder is
             );
       end component;
 
-	signal carry_a:	std_logic_vector(N - 2 downto 1);
+	signal carry_a:	std_logic_vector(N - 2 downto 0);
 begin
       
-      gen_Adder: for i in 0 to N - 1 generate
+      -- Chain of HalfAdders
+      gen_Adder: for i in 1 to N - 1 generate
 
-            gen_first: if i = 0 generate
+            gen_first: if i = 1 generate
                   halfAdder_first: HalfAdder
                   port map(
                         a => a(0),
@@ -39,24 +40,18 @@ begin
                   );
             end generate;
 
-            gen_middle: if i > 0 and i < N - 1 generate
-                  halfAdder_middle: HalfAdder
+            gen_middle: if i > 1 generate
+                  halfAdder_other: HalfAdder
                   port map(
-                        a => carry_a(i-1),
-                        cin => a(i-1),
-                        s => carry_a(i)
-                  );
-            end generate;
-
-            gen_last: if i = N - 1 generate
-                  halfAdder_last: HalfAdder
-                  port map(
-                        a => carry_a(N-2),
-                        cin => a(N-1),
-                        s => s
+                        a => carry_a(i-2),
+                        cin => a(i),
+                        s => carry_a(i-1)
                   );
             end generate;
 
       end generate;
+
+      -- Output of the last adder goes out as final output
+      s <= carry_a(N-2);
 
 end architecture;

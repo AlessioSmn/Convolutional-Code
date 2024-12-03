@@ -56,6 +56,12 @@ begin
             
             a_ext <= "1010"; -- expected 0
             wait for clk_period;
+            
+            a_ext <= "0100"; -- expected 1
+            wait for clk_period;
+            
+            a_ext <= "0000"; -- expected 0
+            wait for clk_period;
 
       -- End Test
             testing <= false; 
