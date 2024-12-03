@@ -33,8 +33,7 @@ architecture beh of ConvolutionalCoder is
 
       -- Masks for the convolutional code
       constant CurrentInputMask : std_logic:= '1';
-      constant PastInputsMask : std_logic_vector(InputMemory - 1 downto 0) := "0011";
-      constant InputMask : std_logic_vector(InputMemory downto 0) := CurrentInputMask & PastInputsMask;
+      constant InputMask : std_logic_vector(InputMemory - 1 downto 0) := "0011";
       constant StateMask : std_logic_vector(StateMemory - 1 downto 0) := "0000000101";
 
       component CodeGenerator is
@@ -44,10 +43,11 @@ architecture beh of ConvolutionalCoder is
             );
             port(
                   c:    in    std_logic;
+                  c_m:  in    std_logic;
                   i:	in    std_logic_vector(InputMemory - 1 downto 0);
-                  i_en: in    std_logic_vector(InputMemory - 1 downto 0);
+                  i_m:  in    std_logic_vector(InputMemory - 1 downto 0);
                   s:	in    std_logic_vector(StateMemory - 1 downto 0);
-                  s_en: in    std_logic_vector(StateMemory - 1 downto 0);
+                  s_m:  in    std_logic_vector(StateMemory - 1 downto 0);
                   o:	out    std_logic
             );
       end component;
@@ -65,27 +65,6 @@ architecture beh of ConvolutionalCoder is
             );
       end component;
 
-      component Adder is
-            generic (
-                  N: positive := 8
-            );
-            port(
-                  a:    in    std_logic_vector(N-1 downto 0);
-                  s:    out   std_logic
-            );
-      end component;
-
-      component Mask is
-            generic (
-                  N: positive := 8
-            );
-            port(
-                  i:    in    std_logic_vector(N-1 downto 0);
-                  mask: in    std_logic_vector(N-1 downto 0);
-                  o:    out   std_logic_vector(N-1 downto 0)
-            );
-      end component;
-
       component FlipFlopD is
             port(
                   clk:	in	std_logic;
@@ -96,22 +75,13 @@ architecture beh of ConvolutionalCoder is
             );
       end component;
 
-      -- Signal from the current input and Input shift register to the input mask
-      signal input_sig: std_logic_vector(InputMemory downto 0);
+      -- Signal from the Input shift register to the code generator
+      signal input_sig: std_logic_vector(InputMemory - 1 downto 0);
 
-      -- Signal from the input mask to the adder
-      signal input_masked_sig: std_logic_vector(InputMemory downto 0);
-
-      -- Signal from the State shift register to the state mask
+      -- Signal from the State shift register to the code generator
       signal state_sig: std_logic_vector(StateMemory - 1 downto 0);
 
-      -- Signal from the state mask to the adder
-      signal state_masked_sig: std_logic_vector(StateMemory - 1 downto 0);
-
-      -- Signal from the masks to the adder
-      signal masked_sig: std_logic_vector(AdderDimension downto 0);
-
-      -- Signal from adder to output register
+      -- Signal from code generator to output register
       signal new_state: std_logic;
 
       -- Signal from output register to states shift register
@@ -132,8 +102,6 @@ begin
                   o => input_sig(InputMemory - 1 downto 0)
             );
 
-      input_sig(InputMemory) <= a_i;
-
       -- Shift register for the past states
       ShiftRegState: ShiftRegister
             generic map(
@@ -146,33 +114,20 @@ begin
                   i => cur_state,
                   o => state_sig
             );
-      
-      -- Input mask, also includes the current input
-      MaskInput: Mask
-            generic map(N => TotalInputMemory)
+            
+      codeGen: CodeGenerator
+            generic map(
+                  InputMemory => InputMemory,
+                  StateMemory => StateMemory
+            )
             port map(
+                  c => a_i,
+                  c_m => CurrentInputMask,
                   i => input_sig,
-                  mask => InputMask,
-                  o => input_masked_sig
-            );
-
-      -- State mask
-      MaskState: Mask
-            generic map(N => StateMemory)
-            port map(
-                  i => state_sig,
-                  mask => StateMask,
-                  o => state_masked_sig
-            );
-
-      masked_sig <= input_masked_sig & state_masked_sig;
-
-      -- New state generator
-      CodeAdder: Adder
-            generic map(N => AdderDimension)
-            port map(
-                  a => masked_sig,
-                  s => new_state
+                  i_m => InputMask,
+                  s => state_sig,
+                  s_m => StateMask,
+                  o => new_state
             );
 
       -- Final register for the generated code
