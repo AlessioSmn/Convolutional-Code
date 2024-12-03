@@ -1,0 +1,86 @@
+C:/intelFPGA/18.1/projects/ConvolutionalCoder/src/HalfAdder.vhd {1 {vcom -work work -2002 -explicit -stats=none C:/intelFPGA/18.1/projects/ConvolutionalCoder/src/HalfAdder.vhd
+Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
+-- Loading package STANDARD
+-- Loading package TEXTIO
+-- Loading package std_logic_1164
+-- Compiling entity HalfAdder
+-- Compiling architecture rtl of HalfAdder
+
+} {} {}} C:/intelFPGA/18.1/projects/ConvolutionalCoder/tb/Adder_TB.vhd {1 {vcom -work work -2002 -explicit -stats=none C:/intelFPGA/18.1/projects/ConvolutionalCoder/tb/Adder_TB.vhd
+Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
+-- Loading package STANDARD
+-- Loading package TEXTIO
+-- Loading package std_logic_1164
+-- Loading package NUMERIC_STD
+-- Compiling entity Adder_TestBench
+-- Compiling architecture beh of Adder_TestBench
+
+} {} {}} C:/intelFPGA/18.1/projects/ConvolutionalCoder/tb/Mask_TB.vhd {1 {vcom -work work -2002 -explicit -stats=none C:/intelFPGA/18.1/projects/ConvolutionalCoder/tb/Mask_TB.vhd
+Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
+-- Loading package STANDARD
+-- Loading package TEXTIO
+-- Loading package std_logic_1164
+-- Loading package NUMERIC_STD
+-- Compiling entity Adder_TestBench
+-- Compiling architecture beh of Adder_TestBench
+
+} {} {}} C:/intelFPGA/18.1/projects/ConvolutionalCoder/tb/FlipFlopD_TB.vhd {1 {vcom -work work -2002 -explicit -stats=none C:/intelFPGA/18.1/projects/ConvolutionalCoder/tb/FlipFlopD_TB.vhd
+Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
+-- Loading package STANDARD
+-- Loading package TEXTIO
+-- Loading package std_logic_1164
+-- Loading package NUMERIC_STD
+-- Compiling entity FlipFlopD_TestBench
+-- Compiling architecture beh of FlipFlopD_TestBench
+
+} {} {}} C:/intelFPGA/18.1/projects/ConvolutionalCoder/src/ShiftRegister.vhd {1 {vcom -work work -2002 -explicit -stats=none C:/intelFPGA/18.1/projects/ConvolutionalCoder/src/ShiftRegister.vhd
+Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
+-- Loading package STANDARD
+-- Loading package TEXTIO
+-- Loading package std_logic_1164
+-- Compiling entity ShiftRegister
+-- Compiling architecture beh of ShiftRegister
+
+} {} {}} C:/intelFPGA/18.1/projects/ConvolutionalCoder/src/Adder.vhd {2 {vcom -work work -2002 -explicit -stats=none C:/intelFPGA/18.1/projects/ConvolutionalCoder/src/Adder.vhd
+Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
+-- Loading package STANDARD
+-- Loading package TEXTIO
+-- Loading package std_logic_1164
+-- Compiling entity Adder
+-- Compiling architecture beh of Adder
+** Warning: C:/intelFPGA/18.1/projects/ConvolutionalCoder/src/Adder.vhd(38): (vcom-1153) Index value 0 is out of index range of ieee.std_logic_1164.STD_LOGIC_VECTOR; it is less than 1.
+
+} {} {}} C:/intelFPGA/18.1/projects/ConvolutionalCoder/src/Mask.vhd {1 {vcom -work work -2002 -explicit -stats=none C:/intelFPGA/18.1/projects/ConvolutionalCoder/src/Mask.vhd
+Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
+-- Loading package STANDARD
+-- Loading package TEXTIO
+-- Loading package std_logic_1164
+-- Compiling entity Mask
+-- Compiling architecture beh of Mask
+
+} {} {}} C:/intelFPGA/18.1/projects/ConvolutionalCoder/src/FlipFlopD.vhd {1 {vcom -work work -2002 -explicit -stats=none C:/intelFPGA/18.1/projects/ConvolutionalCoder/src/FlipFlopD.vhd
+Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
+-- Loading package STANDARD
+-- Loading package TEXTIO
+-- Loading package std_logic_1164
+-- Compiling entity FlipFlopD
+-- Compiling architecture rtl of FlipFlopD
+
+} {} {}} C:/intelFPGA/18.1/projects/ConvolutionalCoder/tb/ShiftRegister_TB.vhd {1 {vcom -work work -2002 -explicit -stats=none C:/intelFPGA/18.1/projects/ConvolutionalCoder/tb/ShiftRegister_TB.vhd
+Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
+-- Loading package STANDARD
+-- Loading package TEXTIO
+-- Loading package std_logic_1164
+-- Loading package NUMERIC_STD
+-- Compiling entity ShiftRegister_TestBench
+-- Compiling architecture beh of ShiftRegister_TestBench
+
+} {} {}} C:/intelFPGA/18.1/projects/ConvolutionalCoder/src/ConvolutionalCoder.vhd {1 {vcom -work work -2002 -explicit -stats=none C:/intelFPGA/18.1/projects/ConvolutionalCoder/src/ConvolutionalCoder.vhd
+Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
+-- Loading package STANDARD
+-- Loading package TEXTIO
+-- Loading package std_logic_1164
+-- Compiling entity ConvolutionalCoder
+-- Compiling architecture beh of ConvolutionalCoder
+
+} {} {}}
