@@ -3,6 +3,8 @@ modelsim/work/*
 
 vivado/
 
+modelsim/*.mti
+modelsim/*.mpf
 modelsim/*.bmp
 modelsim/*.wlf
 modelsim/*.do
@@ -10,4 +12,4 @@ modelsim/*.txt
 modelsim/vsim.wlf
 modelsim/work/_info
 modelsim/work/_lib.qdb
-modelsim/vsim.wlf
+
