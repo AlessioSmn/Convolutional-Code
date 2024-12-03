@@ -1,6 +1,10 @@
 modelsim/work
+modelsim/work/*
 
 modelsim/*.bmp
 modelsim/*.wlf
 modelsim/*.do
 modelsim/*.txt
+modelsim/vsim.wlf
+modelsim/work/_info
+modelsim/work/_lib.qdb
