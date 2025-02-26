@@ -1,6 +1,7 @@
 library ieee;
 use ieee.std_logic_1164.all;
 
+-- Main ConvolutionalCoder entity
 entity ConvolutionalCoder is
       port(
             -- CLock signal
@@ -54,14 +55,14 @@ architecture beh of ConvolutionalCoder is
 
       component ShiftRegister is
             generic (
-                  CodewordMemory: positive := 11
+                  Memory: positive := 11
             );
             port(
                   clk:	in	std_logic;
                   res:	in	std_logic;
                   en:	in	std_logic;
                   i:	in    std_logic;
-                  o:	out   std_logic_vector(CodewordMemory - 1 downto 0)
+                  o:	out   std_logic_vector(Memory - 1 downto 0)
             );
       end component;
 
@@ -100,7 +101,7 @@ begin
                   res => res,
                   en => i_valid,
                   i => a_i,
-                  o => input_sig(InputMemory - 1 downto 0)
+                  o => input_sig
             );
 
       -- Shift register component
