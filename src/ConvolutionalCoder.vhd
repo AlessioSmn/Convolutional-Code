@@ -10,16 +10,15 @@ entity ConvolutionalCoder is
             -- Reset signal (note: active low)
             res:	      in	std_logic;
 
-            -- Flag to signal if data input ('a_i') is valid
+            -- Flag to signal if data input ('a_k') is valid
             i_valid:	in	std_logic;
-            -- Data input
-            a_i:	      in    std_logic;
 
-            -- Flag to signal if data output ('a_o' and 'c') is valid
+            -- Data input
+            a_k:	      inout std_logic;
+
+            -- Flag to signal if data output ('c') is valid
             o_valid:	out	std_logic;
 
-            -- Current input
-            a_o:	      out   std_logic;
             -- New code symbol generated
             c:	      out   std_logic
       );
@@ -100,7 +99,7 @@ begin
                   clk => clk,
                   res => res,
                   en => i_valid,
-                  i => a_i,
+                  i => a_k,
                   o => input_sig
             );
 
@@ -126,7 +125,7 @@ begin
                   CodewordMemory => CodewordMemory
             )
             port map(
-                  c => a_i,
+                  c => a_k,
                   c_m => CurrentInputMask,
                   i => input_sig,
                   i_m => InputMask,
@@ -143,16 +142,6 @@ begin
                   en => i_valid,
                   i => new_codeword,
                   o => cur_codeword
-            );
-
-      -- Final register for the current input
-      CurrentInputFFD: FlipFlopD
-            port map(
-                  clk => clk,
-                  res => res,
-                  en => i_valid,
-                  i => a_i,
-                  o => a_o
             );
 
       -- Final register for the validity of the outputs
