@@ -13,3 +13,8 @@ modelsim/vsim.wlf
 modelsim/work/_info
 modelsim/work/_lib.qdb
 
+.vscode/settings.json
+.vscode/tasks.json
+modelsim/codeTester/tester.exe
+doc/*.drawio
+doc/ConvCode.drawio
