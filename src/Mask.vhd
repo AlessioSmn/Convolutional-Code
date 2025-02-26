@@ -1,6 +1,7 @@
 library ieee;
 use ieee.std_logic_1164.all;
 
+-- Takes to N bit arrays and performs a bitwise AND operation between the two vectors.
 entity Mask is
 	generic (
             -- Number of bits
@@ -20,5 +21,6 @@ end entity;
 
 architecture beh of Mask is
 begin
+      -- Performs bitwise AND between input vectors i and mask.
       o <= i AND mask;
 end architecture;

@@ -40,12 +40,13 @@ architecture beh of ShiftRegister is
             );
       end component;
 
-      -- Internal connections between DDFs
+      -- Internal connections between FFDs
       signal s:   std_logic_vector(Memory - 1 downto 0);
 
 begin
       generate_DFF: for j in 0 to Memory - 1 generate
 
+            -- First FFD has its input connected to the shift register input
             gen_first: if j = 0 generate
                   dff_first: FlipFlopD
                         port map(
@@ -57,6 +58,7 @@ begin
                         );
             end generate;
             
+            -- All other FFDs are linked in chain, using signal s
             gen_others: if j > 0 generate
                   dff_other: FlipFlopD
                         port map(
@@ -70,7 +72,7 @@ begin
 
       end generate;
 
-      -- Connect all DFFs outputs to the register array output
+      -- Connect all FFDs outputs to the shift register output array
       o <= s;
 
 end architecture;

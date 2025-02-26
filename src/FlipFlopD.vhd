@@ -37,11 +37,15 @@ begin
             -- If reset not active, only update on rising edge
             elsif rising_edge(clk) then
                   o_s <= i_s;
+
             end if;
 
       end process;
 
+      -- Link internal state signal either to the input or to the past state
       i_s <= i when en = '1' else o_s;
+
+      -- Bring out the current state to the FFD output line
       o <= o_s;
 
 end architecture;
