@@ -17,3 +17,5 @@ modelsim/work/_lib.qdb
 .vscode/tasks.json
 modelsim/codeTester/tester.exe
 doc/*.drawio
+doc/*.png
+doc/*.bkp
