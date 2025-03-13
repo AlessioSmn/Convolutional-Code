@@ -6,7 +6,7 @@ using namespace std;
 #define CYCLES 30
 #define INPUT_REG_DIM 4
 #define STATE_REG_DIM 10
-#define CURRENT_INPUT_NAME "a_i_ext"
+#define CURRENT_INPUT_NAME "a_k_ext"
 #define EXPECTED_OUTPUT_NAME "o_ext"
 #define CLOCK_PERIOD "clk_period"
 #define RISING_EDGE "rising_edge(clk_ext)"
