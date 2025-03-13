@@ -12,6 +12,8 @@ modelsim/*.txt
 modelsim/vsim.wlf
 modelsim/work/_info
 modelsim/work/_lib.qdb
+modelsim/codeTester/lines/*
+modelsim/codeTester/*.exe
 
 .vscode/settings.json
 .vscode/tasks.json
