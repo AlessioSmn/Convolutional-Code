@@ -19,13 +19,28 @@ architecture beh of Adder_TestBench is
             );
       end component;
 
+      -- clock signal
       signal clk_ext :  std_logic := '0';
+
+      -- input signal
       signal a_ext :    std_logic_vector(Dimension - 1 downto 0) := (others => '0');
+
+      -- output signal
       signal s_ext :    std_logic;
+
+      -- excpected output signal
+      signal s_e_ext :  std_logic;
+
+      -- error flag
+      signal out_error: std_logic; 
+
+      -- testing flag
       signal testing :  boolean := true;
 begin
 
       clk_ext <= not clk_ext after clk_period/2 when testing else '0';
+
+      out_error <= '0' when s_ext = s_e_ext else '1';
 
       i_DUT: Adder
             generic map(N => Dimension)
@@ -39,29 +54,69 @@ begin
             wait for clk_period;
 
       -- Test various inputs
-            a_ext <= "1111"; -- expected 0
-            wait for clk_period;
-            
-            a_ext <= "1110"; -- expected 1
-            wait for clk_period;
-            
-            a_ext <= "1100"; -- expected 0
-            wait for clk_period;
-            
-            a_ext <= "1000"; -- expected 1
-            wait for clk_period;
-            
-            a_ext <= "1111"; -- expected 0
-            wait for clk_period;
-            
-            a_ext <= "1010"; -- expected 0
-            wait for clk_period;
-            
-            a_ext <= "0100"; -- expected 1
-            wait for clk_period;
-            
-            a_ext <= "0000"; -- expected 0
-            wait for clk_period;
+            a_ext <= "0000";
+		s_e_ext <= '0';
+		wait for clk_period;
+
+		a_ext <= "0001";
+		s_e_ext <= '1';
+		wait for clk_period;
+
+		a_ext <= "0010";
+		s_e_ext <= '1';
+		wait for clk_period;
+
+		a_ext <= "0011";
+		s_e_ext <= '0';
+		wait for clk_period;
+
+		a_ext <= "0100";
+		s_e_ext <= '1';
+		wait for clk_period;
+
+		a_ext <= "0101";
+		s_e_ext <= '0';
+		wait for clk_period;
+
+		a_ext <= "0110";
+		s_e_ext <= '0';
+		wait for clk_period;
+
+		a_ext <= "0111";
+		s_e_ext <= '1';
+		wait for clk_period;
+
+		a_ext <= "1000";
+		s_e_ext <= '1';
+		wait for clk_period;
+
+		a_ext <= "1001";
+		s_e_ext <= '0';
+		wait for clk_period;
+
+		a_ext <= "1010";
+		s_e_ext <= '0';
+		wait for clk_period;
+
+		a_ext <= "1011";
+		s_e_ext <= '1';
+		wait for clk_period;
+
+		a_ext <= "1100";
+		s_e_ext <= '0';
+		wait for clk_period;
+
+		a_ext <= "1101";
+		s_e_ext <= '1';
+		wait for clk_period;
+
+		a_ext <= "1110";
+		s_e_ext <= '1';
+		wait for clk_period;
+
+		a_ext <= "1111";
+		s_e_ext <= '0';
+		wait for clk_period;
 
       -- End Test
             testing <= false; 

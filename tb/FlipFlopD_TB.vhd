@@ -100,6 +100,10 @@ begin
             wait for clk_period;
             in_ext <= '1'; 
             wait for clk_period;
+            in_ext <= '0'; 
+            wait for clk_period;
+            in_ext <= '1'; 
+            wait for clk_period;
 
             -- Deactivate the reset signal
             res_ext <= '1';
