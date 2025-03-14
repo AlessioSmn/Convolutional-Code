@@ -11,6 +11,8 @@ entity ConvolutionalCoder is
             CodewordMemory: positive := 8
       );
       port(
+            TEST_INPUT_REG: out std_logic_vector(InputMemory - 1 downto 0);
+            TEST_STATE_REG: out std_logic_vector(CodewordMemory - 1 downto 0);
             -- Clock signal
             clk:	      in	std_logic;
             
@@ -21,7 +23,7 @@ entity ConvolutionalCoder is
             i_valid:	in	std_logic;
 
             -- Data input
-            a_k:	      inout std_logic;
+            a_k_i:	in    std_logic;
 
             -- Current input mask
             c_mask:     in    std_logic;
@@ -34,6 +36,9 @@ entity ConvolutionalCoder is
 
             -- Flag to signal if data output ('c') is valid
             o_valid:	out	std_logic;
+
+            -- Current input, taken out
+            a_k_o:	out   std_logic;
 
             -- New code symbol generated
             c:	      out   std_logic
@@ -105,7 +110,7 @@ begin
                   clk => clk,
                   res => res,
                   en => i_valid,
-                  i => a_k,
+                  i => a_k_i,
                   o => input_sig
             );
 
@@ -119,7 +124,7 @@ begin
                   clk => clk,
                   res => res,
                   en => i_valid,
-                  i => cur_codeword,
+                  i => new_codeword,
                   o => codeword_sig
             );
             
@@ -131,7 +136,7 @@ begin
                   CodewordMemory => CodewordMemory
             )
             port map(
-                  c => a_k,
+                  c => a_k_i,
                   c_m => c_mask,
                   i => input_sig,
                   i_m => i_mask,
@@ -150,6 +155,16 @@ begin
                   o => cur_codeword
             );
 
+      -- Final register for the current input
+      CurrentInputFFD: FlipFlopD
+            port map(
+                  clk => clk,
+                  res => res,
+                  en => i_valid,
+                  i => a_k_i,
+                  o => a_k_o
+            );
+
       -- Final register for the validity of the outputs
       ValidFFD: FlipFlopD
             port map(
@@ -161,4 +176,8 @@ begin
             );
 
       c <= cur_codeword;
+
+      TEST_INPUT_REG <= input_sig;
+      TEST_STATE_REG <= codeword_sig;
+
 end architecture;
