@@ -7,7 +7,7 @@ end entity;
 architecture beh of ShiftRegister_TestBench is 
       -- Clock frequency of 125MHz
       constant clk_period : time := 8 ns;
-      constant Dimension : positive := 8; 
+      constant Dimension : positive := 9; -- easy to visualize in octal
 
       component ShiftRegister is
             generic (
@@ -52,9 +52,9 @@ begin
       begin 
 
       -- Firstly set the register in an initial state
-            wait for 20 ns;
+            wait for clk_period;
             res_ext <= '0';
-            wait for 4 ns;
+            wait for clk_period;
             res_ext <= '1';
             
       -- Test when enabled
@@ -66,14 +66,12 @@ begin
             wait until rising_edge(clk_ext);
             wait for clk_period/2;
 
-            -- Set input: "111000111000"
+            -- Set input: "111000111"
             in_ext <= '1'; 
             wait for clk_period*3;
             in_ext <= '0'; 
             wait for clk_period*3;
             in_ext <= '1'; 
-            wait for clk_period*3;
-            in_ext <= '0'; 
             wait for clk_period*3;
 
             -- Keep '0' at the input with register enabled
@@ -95,7 +93,8 @@ begin
             -- Deactivate the enable signal
             en_ext <= '0';
 
-            -- Wait for some clock cycles
+            -- Wait for some clock cycles while setting the input to 1
+            in_ext <= '0'; 
             wait for clk_period*Dimension;
 
       -- Test reset
@@ -104,11 +103,11 @@ begin
             res_ext <= '0';
 
             -- Wait for at least one clock cycle, also under varying in_ext
-            wait for 20 ns;
+            wait for clk_period;
             in_ext <= '0'; 
-            wait for 10 ns;
+            wait for clk_period;
             in_ext <= '1'; 
-            wait for 10 ns;
+            wait for clk_period;
 
             -- Deactivate the reset signal
             res_ext <= '1';
