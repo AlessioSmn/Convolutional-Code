@@ -31,7 +31,7 @@ architecture beh of Mask_TestBench is
       -- produced output signal
       signal s_ext :    std_logic_vector(Dimension - 1 downto 0);
 
-      -- expected outout signal
+      -- expected output signal
       signal s_e_ext :  std_logic_vector(Dimension - 1 downto 0);
 
       -- error flag
