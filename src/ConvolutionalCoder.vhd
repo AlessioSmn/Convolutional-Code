@@ -1,10 +1,17 @@
 library ieee;
 use ieee.std_logic_1164.all;
 
--- Main ConvolutionalCoder entity
+-- Main ConvolutionalCoder entity, still written with generic paramters
 entity ConvolutionalCoder is
+      generic (
+            -- Input memory of the convolutional code (note: without considering the current input)
+            InputMemory: positive := 8;
+
+            -- Codeword memory of the convolutional code
+            CodewordMemory: positive := 8
+      );
       port(
-            -- CLock signal
+            -- Clock signal
             clk:	      in	std_logic;
             
             -- Reset signal (note: active low)
@@ -16,6 +23,15 @@ entity ConvolutionalCoder is
             -- Data input
             a_k:	      inout std_logic;
 
+            -- Current input mask
+            c_mask:     in    std_logic;
+
+            -- Past input mask
+            i_mask:     in    std_logic_vector(InputMemory - 1 downto 0);
+
+            -- Past codewords mask
+            s_mask:     in    std_logic_vector(CodewordMemory - 1 downto 0);
+
             -- Flag to signal if data output ('c') is valid
             o_valid:	out	std_logic;
 
@@ -25,16 +41,6 @@ entity ConvolutionalCoder is
 end entity;
 
 architecture beh of ConvolutionalCoder is
-
-      -- Convolutional Code Memory dimensions, as per specs
-      constant InputMemory : positive := 4;
-      constant CodewordMemory : positive := 10;
-
-      -- Masks for the convolutional code
-      -- These are defined in order to match the specifications, the values can be changed to implement a different code
-      constant CurrentInputMask : std_logic:= '1';
-      constant InputMask : std_logic_vector(InputMemory - 1 downto 0) := "0011"; -- Only a(k-3) and a(k-4)
-      constant CodewordMask : std_logic_vector(CodewordMemory - 1 downto 0) := "0000000101";  -- Only c(k-8) and c(k-10)
 
       component CodeGenerator is
             generic (
@@ -126,11 +132,11 @@ begin
             )
             port map(
                   c => a_k,
-                  c_m => CurrentInputMask,
+                  c_m => c_mask,
                   i => input_sig,
-                  i_m => InputMask,
+                  i_m => i_mask,
                   s => codeword_sig,
-                  s_m => CodewordMask,
+                  s_m => s_mask,
                   o => new_codeword
             );
 
