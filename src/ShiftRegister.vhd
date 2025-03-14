@@ -54,7 +54,7 @@ begin
                               res => res,
                               en => en,
                               i => i,
-                              o => s(0)
+                              o => s(Memory - 1)
                         );
             end generate;
             
@@ -65,8 +65,8 @@ begin
                               clk => clk,
                               res => res,
                               en => en,
-                              i => s(j - 1),
-                              o => s(j)
+                              i => s(Memory - j),
+                              o => s(Memory - j - 1)
                         );
             end generate;
 
