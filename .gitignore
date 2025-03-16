@@ -21,3 +21,4 @@ modelsim/codeTester/tester.exe
 doc/*.drawio
 doc/*.png
 doc/*.bkp
+doc/waveforms/*
