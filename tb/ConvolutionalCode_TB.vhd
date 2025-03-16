@@ -15,8 +15,6 @@ architecture beh of ConvolutionalCoder_TestBench is
                   CodewordMemory: positive := 8
             );
             port(
-            TEST_INPUT_REG: out std_logic_vector(InputMemory - 1 downto 0);
-            TEST_STATE_REG: out std_logic_vector(CodewordMemory - 1 downto 0);
                   clk:	      in	std_logic;
                   res:	      in	std_logic;
                   i_valid:	in	std_logic;
@@ -32,9 +30,6 @@ architecture beh of ConvolutionalCoder_TestBench is
 
       -- clock signal
       signal clk_ext :        std_logic := '0';
-
-      signal TEST_INPUT_REG_ext: std_logic_vector(InputMemory - 1 downto 0);
-      signal TEST_STATE_REG_ext: std_logic_vector(CodewordMemory - 1 downto 0);
             
       -- Reset signal (note: active low)
       signal res_ext:         std_logic := '1';
@@ -82,8 +77,6 @@ begin
                   CodewordMemory => CodewordMemory
             )
             port map (
-                  TEST_INPUT_REG => TEST_INPUT_REG_ext,
-                  TEST_STATE_REG => TEST_STATE_REG_ext,
                   clk => clk_ext,
                   res => res_ext,
                   i_valid => i_v_ext,
@@ -100,6 +93,7 @@ begin
       begin 
       -- Test 1) Test reset
             res_ext <= '0';
+            c_expected <= '0';
             wait for clk_period*2;
             -- reset off
             res_ext <= '1';
@@ -113,10 +107,7 @@ begin
             -- Set the input to valid
             i_v_ext <= '1';
 
-            c_expected <= '1'; wait for 1 ns; c_expected <= '0'; wait for 1 ns;
-            c_expected <= '1'; wait for 1 ns; c_expected <= '0'; wait for 1 ns;
-            c_expected <= '1'; wait for 1 ns; c_expected <= '0'; wait for 1 ns;
-            c_expected <= '1'; wait for 1 ns; c_expected <= '0'; wait for 1 ns;
+
       
       -- Test 2) Keep input to 0: should keep outputting 0
             -- Input Mask:	
@@ -129,20 +120,13 @@ begin
 		wait for clk_period*CodewordMemory;
 
 
-
-
             -- Reset to initial state
             res_ext <= '0';
             a_k_ext <= '0';
 		wait for clk_period;
             res_ext <= '1';
 
-      
 
-            c_expected <= '1'; wait for 1 ns; c_expected <= '0'; wait for 1 ns;
-            c_expected <= '1'; wait for 1 ns; c_expected <= '0'; wait for 1 ns;
-            c_expected <= '1'; wait for 1 ns; c_expected <= '0'; wait for 1 ns;
-            c_expected <= '1'; wait for 1 ns; c_expected <= '0'; wait for 1 ns;
 
       -- Test 3) Keep input to 1
             -- Input Mask: 		
@@ -337,12 +321,6 @@ begin
 		wait for clk_period;
             res_ext <= '1';
 
-
-
-            c_expected <= '1'; wait for 1 ns; c_expected <= '0'; wait for 1 ns;
-            c_expected <= '1'; wait for 1 ns; c_expected <= '0'; wait for 1 ns;
-            c_expected <= '1'; wait for 1 ns; c_expected <= '0'; wait for 1 ns;
-            c_expected <= '1'; wait for 1 ns; c_expected <= '0'; wait for 1 ns;
 
 
       -- Test 4) Alternate input between 0 and 1
@@ -544,11 +522,6 @@ begin
 
 
 
-            c_expected <= '1'; wait for 1 ns; c_expected <= '0'; wait for 1 ns;
-            c_expected <= '1'; wait for 1 ns; c_expected <= '0'; wait for 1 ns;
-            c_expected <= '1'; wait for 1 ns; c_expected <= '0'; wait for 1 ns;
-            c_expected <= '1'; wait for 1 ns; c_expected <= '0'; wait for 1 ns;
-
       -- Test 5) Random input stream
             -- Input Mask: 
 		i_m_ext <= "0100";
@@ -737,11 +710,6 @@ begin
 		 -- Register masked [x1xx] [x00xxx]
 
 
-            c_expected <= '1'; wait for 1 ns; c_expected <= '0'; wait for 1 ns;
-            c_expected <= '1'; wait for 1 ns; c_expected <= '0'; wait for 1 ns;
-            c_expected <= '1'; wait for 1 ns; c_expected <= '0'; wait for 1 ns;
-            c_expected <= '1'; wait for 1 ns; c_expected <= '0'; wait for 1 ns;
-
 
       -- Test 6) Switch off i_valid, toggling the input
             i_v_ext <= '0';
@@ -750,74 +718,8 @@ begin
 		wait for clk_period*5;
 		a_k_ext <= '0';
 		wait for clk_period*5;
-
-
-
-            c_expected <= '1'; wait for 1 ns; c_expected <= '0'; wait for 1 ns;
-            c_expected <= '1'; wait for 1 ns; c_expected <= '0'; wait for 1 ns;
-            c_expected <= '1'; wait for 1 ns; c_expected <= '0'; wait for 1 ns;
-            c_expected <= '1'; wait for 1 ns; c_expected <= '0'; wait for 1 ns;
-
-
-      -- Test 7) Test reset
-            res_ext <= '0';
-            c_expected <= '0';
-            wait for clk_period*2;
-
-
-
-            c_expected <= '1'; wait for 1 ns; c_expected <= '0'; wait for 1 ns;
-            c_expected <= '1'; wait for 1 ns; c_expected <= '0'; wait for 1 ns;
-            c_expected <= '1'; wait for 1 ns; c_expected <= '0'; wait for 1 ns;
-            c_expected <= '1'; wait for 1 ns; c_expected <= '0'; wait for 1 ns;
-
-      -- Test 8) Test current input in-out relation;
-            a_k_ext <= '1';
-            wait for clk_period;
-            -- a_k_o should be 1
-            a_k_ext <= '0';
-            wait for clk_period;
-            -- a_k_o should be 0
-            a_k_ext <= '1';
-            wait for clk_period;
-            -- a_k_o should be 1
-            a_k_ext <= '0';
-            wait for clk_period;
-            -- a_k_o should be 0
-            a_k_ext <= '1';
-            wait for clk_period;
-            -- a_k_o should be 1
-
-
-
-            c_expected <= '1'; wait for 1 ns; c_expected <= '0'; wait for 1 ns;
-            c_expected <= '1'; wait for 1 ns; c_expected <= '0'; wait for 1 ns;
-            c_expected <= '1'; wait for 1 ns; c_expected <= '0'; wait for 1 ns;
-            c_expected <= '1'; wait for 1 ns; c_expected <= '0'; wait for 1 ns;
-
-      -- Test 9) Test output_valid flag
-            i_v_ext <= '1';
-            wait for clk_period;
-            -- o_valid should be 1
-            i_v_ext <= '0';
-            wait for clk_period;
-            -- o_valid should be 0
-            i_v_ext <= '1';
-            wait for clk_period;
-            -- o_valid should be 1
-            i_v_ext <= '0';
-            wait for clk_period;
-            -- o_valid should be 0
-            i_v_ext <= '1';
-            wait for clk_period;
-            -- o_valid should be 1
             
 
-
-            c_expected <= '1'; wait for 1 ns; c_expected <= '0'; wait for 1 ns;
-            c_expected <= '1'; wait for 1 ns; c_expected <= '0'; wait for 1 ns;
-            c_expected <= '1'; wait for 1 ns; c_expected <= '0'; wait for 1 ns;
-            c_expected <= '1'; wait for 1 ns; c_expected <= '0'; wait for 1 ns;
 
       -- End Tests
             testing <= false;

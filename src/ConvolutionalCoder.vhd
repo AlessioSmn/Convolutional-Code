@@ -11,8 +11,6 @@ entity ConvolutionalCoder is
             CodewordMemory: positive := 8
       );
       port(
-            TEST_INPUT_REG: out std_logic_vector(InputMemory - 1 downto 0);
-            TEST_STATE_REG: out std_logic_vector(CodewordMemory - 1 downto 0);
             -- Clock signal
             clk:	      in	std_logic;
             
@@ -176,8 +174,5 @@ begin
             );
 
       c <= cur_codeword;
-
-      TEST_INPUT_REG <= input_sig;
-      TEST_STATE_REG <= codeword_sig;
 
 end architecture;
