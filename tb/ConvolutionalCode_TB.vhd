@@ -533,10 +533,11 @@ begin
 		 -- Register masked [1xx0] [x0xxx0]
 
 
-
+		wait for clk_period;
 
             -- Reset to initial state
             res_ext <= '0';
+		c_expected <= '0';
             a_k_ext <= '0';
 		wait for clk_period;
             res_ext <= '1';
