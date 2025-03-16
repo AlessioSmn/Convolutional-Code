@@ -6,7 +6,7 @@ using namespace std;
 
 #define CYCLES 30
 #define INPUT_REG_DIM 4
-#define STATE_REG_DIM 6
+#define STATE_REG_DIM 10
 #define CURRENT_INPUT_NAME "a_k_ext"
 #define EXPECTED_OUTPUT_NAME "c_expected"
 #define CURRENT_MASK_NAME "c_m_ext"
@@ -219,7 +219,7 @@ void generateTestBenchText(InputStreamType inputStreamType, bool currentInputMas
       }
 }
 void openFile() {
-      string filePath = "C:/intelFPGA/18.1/projects/ConvolutionalCoder/modelsim/codeTester/lines/convcode_tester.txt";
+      string filePath = "C:/intelFPGA/18.1/projects/ConvolutionalCoder/modelsim/codeTester/lines/wrapper_tester.txt";
       outputTextFile.open(filePath, ios::out);
       if (!outputTextFile.is_open()) {
             cerr << "Errore nell'aprire il file: " << filePath << endl;
@@ -234,23 +234,14 @@ int main(){
 
       // Run 0
       bool inputMask[INPUT_REG_DIM] = {0,0,1,1};
-      bool stateMask[STATE_REG_DIM] = {1,0,0,1,0,1};
+      bool stateMask[STATE_REG_DIM] = {0,0,0,0,0,0,0,1,0,1};
       generateTestBenchText(AllZeros, 1, inputMask, stateMask);
 
       // Run 1
-      bool inputMask2[INPUT_REG_DIM] = {1,1,0,0};
-      bool stateMask2[STATE_REG_DIM] = {0,1,1,0,1,0};
-      generateTestBenchText(AllOnes, 1, inputMask2, stateMask2);
-
-      // Run alternate
-      bool inputMask3[INPUT_REG_DIM] = {1,0,0,1};
-      bool stateMask3[STATE_REG_DIM] = {0,1,0,0,0,1};
-      generateTestBenchText(Alternate, 1, inputMask3, stateMask3);
+      generateTestBenchText(AllOnes, 1, inputMask, stateMask);
 
       // Run random
-      bool inputMask4[INPUT_REG_DIM] = {0,1,0,0};
-      bool stateMask4[STATE_REG_DIM] = {0,1,1,0,0,0};
-      generateTestBenchText(Random, 1, inputMask4, stateMask4);
+      generateTestBenchText(Random, 1, inputMask, stateMask);
 
       return 0;
 }
