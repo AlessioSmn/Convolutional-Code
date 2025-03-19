@@ -51,6 +51,7 @@ begin
 
       p_STIMULUS: process 
       begin 
+		s_e_ext <= '0';
             wait for clk_period;
 
       -- Test various inputs

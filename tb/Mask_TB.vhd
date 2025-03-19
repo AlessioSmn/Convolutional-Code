@@ -54,6 +54,7 @@ begin
 
       p_STIMULUS: process 
       begin 
+		s_e_ext <= "0000";
             wait for clk_period;
 
       -- Test various input with complete mask
