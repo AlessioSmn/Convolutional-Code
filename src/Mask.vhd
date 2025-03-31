@@ -19,7 +19,7 @@ entity Mask is
       );
 end entity;
 
-architecture beh of Mask is
+architecture rtl of Mask is
 begin
       -- Performs bitwise AND between input vectors i and mask.
       o <= i AND mask;

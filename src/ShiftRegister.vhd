@@ -44,6 +44,9 @@ architecture beh of ShiftRegister is
       signal s:   std_logic_vector(Memory - 1 downto 0);
 
 begin
+      -- Note: the output lines are 'inverted' (FlipFlopD[0] outputs s(Memory - 1), all the way down to FlipFlopD[Memory - 1] outputting s(0))
+      -- so that we are able to later specify the masks in the form "abc....z", where a masks the most recent bit and z masks the least recent saved bit.
+      -- Note that another possibility is to use 'to' instead of 'downto'
       generate_DFF: for j in 0 to Memory - 1 generate
 
             -- First FFD has its input connected to the shift register input

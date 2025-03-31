@@ -66,7 +66,7 @@ architecture beh of CodeGenerator is
       -- Concatenated signal containing the mask for the current input ('c_m') and past input masks ('i_m')
       signal input_mask: std_logic_vector(TotalInputMemory - 1 downto 0);
 
-      -- Masked signal to be processed by the adder
+      -- Masked signal to be processed by the adder, containing both the inputs signals 'inputs' and codewords signals 's'
       signal masked_sig: std_logic_vector(AdderDimension - 1 downto 0);
 
 
